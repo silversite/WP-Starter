@@ -2,6 +2,7 @@
 
 use Roots\Sage\Setup;
 use Roots\Sage\Wrapper;
+use SilverWp\Helper\Control\SidebarPosition;
 
 ?>
 
@@ -24,7 +25,7 @@ get_template_part('templates/header');
         <main class="main">
             <?php include Wrapper\template_path(); ?>
         </main><!-- /.main -->
-        <?php if (Setup\display_sidebar()) : ?>
+        <?php if (Setup\display_sidebar() && SidebarPosition::isDisplayed()) : ?>
             <aside class="sidebar">
                 <?php include Wrapper\sidebar_path(); ?>
             </aside><!-- /.sidebar -->

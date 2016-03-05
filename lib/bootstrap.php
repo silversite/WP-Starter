@@ -23,7 +23,7 @@ use SilverWp\FileSystem;
 
 try {
 	//register required plugins
-    if ( class_exists( '\SilverWp\SilverWp' ) && class_exists( '\SilverWpAddons\ShortCode\Setup' )) {
+    if ( class_exists( '\SilverWp\SilverWp' ) ) {
         //register patches
 	    $theme_root_path = get_stylesheet_directory();
 	    $theme_root_uri = get_template_directory_uri();
@@ -37,8 +37,8 @@ try {
 	    $file_system->addDirectory( 'css_uri', $theme_root_uri . '/dist/styles/' );
 	    $file_system->addDirectory( 'css_path', $theme_root_path . '/dist/styles/' );
 
-	    $file_system->addDirectory( 'images_uri', $theme_root_uri . '/assets/images/' );
-	    $file_system->addDirectory( 'images_path', $theme_root_path . '/assets/images/' );
+	    $file_system->addDirectory( 'images_uri', $theme_root_uri . '/dist/images/' );
+	    $file_system->addDirectory( 'images_path', $theme_root_path . '/dist/images/' );
 
 	    $file_system->addDirectory( 'icons_uri', $theme_root_uri . '/dist/fonts/' );
 	    $file_system->addDirectory( 'icons_path', $theme_root_path . '/dist/fonts/' );
@@ -52,9 +52,11 @@ try {
         $file_system->addDirectory( 'theme_plugin_uri', $theme_root_uri . '/plugins/' );
         $file_system->addDirectory( 'theme_plugin_path', $theme_root_path . '/plugins/' );
 
-	    $file_system->addDirectory( 'vc_templates', $theme_root_path . '/views/shortcodes/vc_templates/' );
+		if ( class_exists( '\SilverWpAddons\ShortCode\Setup' ) ) {
+			$file_system->addDirectory( 'vc_templates', $theme_root_path . '/views/shortcodes/vc_templates/' );
+			$file_system->addDirectory( 'sc_templates', $theme_root_path . '/views/shortcodes/' );
+		}
 	    $file_system->addDirectory( 'views', $theme_root_path . '/views/' );
-	    $file_system->addDirectory( 'sc_templates', $theme_root_path . '/views/shortcodes/' );
 
 	    $file_system->addDirectory( 'lib_path', $theme_root_path . '/lib/' );
 	    $file_system->addDirectory( 'widgets_views', $theme_root_path . '/views/widgets/' );
@@ -78,11 +80,12 @@ try {
 			\ThemeOption\Option::getInstance();
 		}
 
+		/*
 	    $customizer = \Customizer\Customizer::getInstance();
 		$customizer->addSection( new \Customizer\Panel\General() );
 		$customizer->addSection( new \Customizer\Panel\StyleLayout() );
 		$customizer->addSection( new \Customizer\Panel\Blog() );
-
+		*/
 	}
 } catch ( \SilverWp\Exception $ex ) {
     $ex->catchException();

@@ -23,9 +23,6 @@ function body_class( array $classes ) {
 			$classes[] = basename( get_permalink() );
 		}
 	}
-	if ( Option::get_theme_option( 'friendly_date_format' ) ) {
-		$classes[] = 'is-cutetime';
-	}
 	// Add class if sidebar is active
 	if ( Setup\display_sidebar() && SidebarPosition::isDisplayed() ) {
 		$classes[] = 'sidebar-primary';
