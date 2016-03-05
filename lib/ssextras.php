@@ -334,3 +334,19 @@ if ( ! function_exists(  __NAMESPACE__ . '\get_related_posts_by_common_terms' ) 
 		return $related_posts;
 	}
 }
+
+if ( ! function_exists(  __NAMESPACE__ . '\the_portfolio_tags' ) ) {
+	/**
+	 * Retrieve the tags for a project (Portfolio).
+	 *
+	 * @param $before - (string) (Optional) Before list. Default value: null
+	 * @param $sep - (string) (Optional) Separate items using this. Default value: ', '
+	 * @param $after - (string) (Optional) After list. Default value: ''
+	 */
+	function the_portfolio_tags( $before = null, $sep = ', ', $after = '' ) {
+		if ( null === $before ) {
+			$before = __('Tags: ');
+		}
+		echo get_the_term_list( get_the_ID(), 'portfolio_tag', $before, $sep, $after );
+	}
+}

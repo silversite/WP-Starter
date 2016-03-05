@@ -8,12 +8,7 @@
             <?php the_content(); ?>
         </div>
         <footer>
-            <?php var_dump(get_the_terms(get_the_ID(), 'portfolio_tag')) ?>
-            <?php
-            wp_link_pages(array(
-                'before' => '<nav class="page-nav"><p>' . __('Pages:', 'sage'), 'after' => '</p></nav>'
-            ));
-            ?>
+            <?php \SilverWp\the_portfolio_tags( '<p>' . __('Tagi: '), ', ', '</p>' ) ?>
         </footer>
         <?php comments_template('/templates/comments.php'); ?>
     </article>
