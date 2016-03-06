@@ -37,10 +37,7 @@ function body_class( array $classes ) {
 		$the_query->setMetaBox( Page::getInstance() );
 		$the_query->setPostId( get_the_ID() );
 		$the_query->get_posts();
-		//and show header is disabled
-		if ( $the_query->getMetaBox( 'show_header' ) == 0 ) {
-			$classes[] = 'is-no-content-header';
-		}
+
 		//check sidebar position and add class
 		switch ( $the_query->getSidebarPosition() ) {
 			case 'left':
@@ -49,44 +46,12 @@ function body_class( array $classes ) {
 			case 'right':
 				$classes[] = 'is-sidebar-right';
 				break;
+			default:
+				$page_sidebar_position = \SilverWp\get_theme_option( 'pages_sidebar' ); // default (Theme Options)
+				$classes[] = $page_sidebar_position === '1' ? 'is-sidebar-left' : ($page_sidebar_position === '2' ? 'is-sidebar-right' : '');
 		}
 
-		$beyond_content = $the_query->getMetaBox( 'beyond_content' );
-		if ( isset( $beyond_content['above_content'] )
-		     && $beyond_content['above_content'] !== 'empty'
-		) {
-			$classes[] = 'is-data-above-content';
-		}
-
-		//social plugin
-		if ( $plugin_position = $the_query->getMetaBox( 'social_plugin_position' ) ) {
-			switch ( $plugin_position ) {
-				case 'right':
-					$classes[]
-						= 'is-social-plugin is-social-plugin-screen-right';
-					break;
-				case 'left':
-					$classes[]
-						= 'is-social-plugin is-social-plugin-content-left';
-					break;
-
-			}
-		}
 		wp_reset_postdata();
-	} else {
-		//all additional views get plugin position from TO
-		if ( $plugin_position = Option::get_theme_option( 'social_plugin_position' ) ) {
-			switch ( $plugin_position ) {
-				case 'right':
-					$classes[]
-						= 'is-social-plugin is-social-plugin-screen-right';
-					break;
-				case 'left':
-					$classes[]
-						= 'is-social-plugin is-social-plugin-content-left';
-					break;
-			}
-		}
 	}
 
 	if ( is_single() ) {
@@ -95,6 +60,8 @@ function body_class( array $classes ) {
 		$the_query->setPostId( get_the_ID() );
 		$the_query->setMetaBox( Post::getInstance() );
 		$the_query->get_posts();
+
+		//check sidebar position and add class
 		switch ( $the_query->getSidebarPosition() ) {
 			case 'left':
 				$classes[] = 'is-sidebar-left';
@@ -102,21 +69,11 @@ function body_class( array $classes ) {
 			case 'right':
 				$classes[] = 'is-sidebar-right';
 				break;
+			default:
+				$blog_sidebar_position = \SilverWp\get_theme_option( 'blogposts_sidebar' ); // default (Theme Options)
+				$classes[] = $blog_sidebar_position === '1' ? 'is-sidebar-left' : ($blog_sidebar_position === '2' ? 'is-sidebar-right' : '');
 		}
 		wp_reset_postdata();
-	} else {
-		switch ( Option::get_theme_option( 'blogposts_sidebar' ) ) {
-			case '1':
-				$classes[] = 'is-sidebar-left';
-				break;
-			case '2':
-				$classes[] = 'is-sidebar-right';
-				break;
-		}
-	}
-
-	if ( \SilverWp\get_customizer_option( 'navbar_standard_menu' ) === '1' ) {
-		$classes[] = 'is-standard-navigation';
 	}
 
 	return $classes;
