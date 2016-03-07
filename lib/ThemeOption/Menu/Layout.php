@@ -42,13 +42,13 @@ if ( ! class_exists( 'ThemeOption\Menu\Layout' ) ) {
             $sidebar = new SidebarPosition( 'pages_sidebar' );
             $sidebar->setLabel( Translate::translate( 'Pages sidebar' ) );
             $sidebar->setDescription( Translate::translate( 'Default position for new Page.' ) );
-            $sidebar->removeOption( 1 );
+            //$sidebar->removeOption( 1 ); // remove left sidebar option
             $this->addControl( $sidebar );
 
             $sidebar = new SidebarPosition( 'blogposts_sidebar' );
             $sidebar->setLabel( Translate::translate( 'Blog sidebar' ) );
             $sidebar->setDescription( Translate::translate( 'Default position for new Post, Posts Page and Search.' ) );
-            $sidebar->removeOption( 1 );
+            //$sidebar->removeOption( 1 ); // remove left sidebar option
             $this->addControl( $sidebar );
 
             $css = new CodeEditor( 'custom_css' );
