@@ -17,6 +17,7 @@ $sage_includes = array(
   'lib/wrapper.php',   // Theme wrapper class
   'lib/customizer.php', // Theme customizer
 
+  'lib/wp_bootstrap_navwalker.php', // https://github.com/twittem/wp-bootstrap-navwalker
   'lib/ssextras.php',  // SilverWp extra functions
 );
 
